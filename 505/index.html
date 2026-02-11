@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Máy Chủ PlayStation Pulse PS4 5.05 FW GoldHEN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d2d5f 50%, #1a1a3e 75%, #0f0f23 100%);
+            background-attachment: fixed;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-decoration {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.08;
+        }
+
+        .shape-1 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            top: 15%;
+            left: 8%;
+        }
+
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            border-radius: 30%;
+            top: 70%;
+            right: 12%;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #1BFACC, #56FFFF);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            top: 45%;
+            left: 85%;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            padding-bottom: 100px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b6b8ff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .version-info {
+            font-size: 1rem;
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-container {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 0.3rem;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .jailbreak-status {
+            font-size: 1.1rem;
+            color: #888ae9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        #msgs {
+            font-size: 1.1rem;
+            color: #10b981;
+            font-weight: 500;
+            min-height: 30px;
+        }
+
+        #msgs2 {
+            font-size: 1.3rem;
+            color: #888ae9;
+            font-weight: 600;
+        }
+
+        .controls-section {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+            margin: 0.8rem 0 0.8rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+            justify-items: center;
+        }
+
+        .buttons-grid-goldhen {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 2px solid rgba(99, 102, 241, 0.5);
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            background: rgba(30, 41, 59, 0.4);
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+            min-width: 180px;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: 2px solid #d3d5ff;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            transform: translateY(0px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            color: #ffffff;
+        }
+
+        .credits {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d2d5f 50%, #1a1a3e 75%, #0f0f23 100%);
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 1rem;
+            text-align: center;
+            font-size: 1rem;
+            z-index: 10;
+        }
+
+        .credits-line {
+            margin: 0.25rem 0;
+        }
+
+        .credit-label {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .credit-link {
+            color: #ec4899;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .telegram-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nodeplay-link {
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nodeplay-link:hover {
+            color: #d8b4fe;
+        }
+
+        #progress {
+            padding: 2rem 0;
+        }
+
+        #menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 1rem;
+                padding-bottom: 100px;
+            }
+
+            .status-container {
+                padding: 1rem;
+            }
+
+            .buttons-grid {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+
+            .credits {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    <script src="exploit.js"></script>
+</head>
+
+<body onload="if(localStorage.cached505=='yes')setTimeout(exploit, 50);">
+    <script>
+        window.applicationCache.onprogress = function (a) { document.getElementById("msgs2").innerHTML = "Đang Cài Đặt Bộ Nhớ Đệm Ngoại Tuyến: " + (Math.round(100 * (a.loaded / a.total))) + "%"; };
+        window.applicationCache.oncached = function () { setTimeout(function () { document.getElementById("msgs2").innerHTML = "Đã Cài Đặt Bộ Nhớ Đệm Thành Công ✔"; }, 1500); setTimeout(function () { document.getElementById("msgs2").innerHTML = "Bây giờ Hãy Đóng Và Mở Lại Trình Duyệt Của Bạn ..."; }, 3500); localStorage.cached505 = "yes"; };
+        window.applicationCache.onnoupdate = function () { localStorage.cached505 = "yes"; };
+        window.applicationCache.onerror = function () { localStorage.cached505 = "yes"; };
+    </script>
+
+    <div class="bg-decoration">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-section">
+            <h1 class="main-title">Máy Chủ PlayStation Pulse PS4 5.05 FW</h1>
+            <p class="subtitle">GoldHEN Tự Động Ngoại Tuyến bởi PlayStation Pulse</p>
+            <p class="version-info">Vi Chương Trình 5.05 • Trình Tải GoldHEN Tự Động</p>
+        </div>
+
+        <div class="status-container">
+            <div id="progress">
+                <div id="msgs2">Đang Tải... Vui Lòng Chờ</div>
+            </div>
+            <div id="menu">
+                <div id="msgs">Sẵn Sàng Bẻ Khóa</div>
+            </div>
+        </div>
+
+        <div class="controls-section" id="controls" style="display: none;">
+            <div class="section-title">GoldHEN</div>
+            <div class="buttons-grid-goldhen">
+                <button onclick="load_goldhen18()" onmouseover="msgs.innerHTML='GoldHEN v2.4b18.8 cho FW 5.05'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    GoldHEN v2.4b18.8
+                </button>
+                <button onclick="load_goldhen5()" onmouseover="msgs.innerHTML='GoldHEN v2.4b18.5 cho FW 5.05'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    GoldHEN v2.4b18.5
+                </button>
+            </div>
+
+            <div class="section-title">Các Tải Trọng</div>
+            <div class="buttons-grid">
+                <button onclick="load_ftp()"
+                    onmouseover="msgs.innerHTML='Máy Chủ FTP - Khởi động máy chủ FTP để truy cập tệp'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Máy Chủ FTP
+                </button>
+
+                <button onclick="load_ps4debug()" onmouseover="msgs.innerHTML='PS4Debug - Bật các tính năng gỡ lỗi'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    PS4Debug
+                </button>
+
+                <button onclick="load_app2usb()"
+                    onmouseover="msgs.innerHTML='App2USB - Chuyển ứng dụng sang bộ nhớ USB'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    App2USB
+                </button>
+
+                <button onclick="load_backup()" onmouseover="msgs.innerHTML='Sao Lưu - Sao lưu dữ liệu hệ thống vào USB'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Sao Lưu
+                </button>
+
+                <button onclick="load_restore()" onmouseover="msgs.innerHTML='Khôi Phục - Khôi phục dữ liệu hệ thống từ USB'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Khôi Phục
+                </button>
+
+                <button onclick="load_disableUpdates()"
+                    onmouseover="msgs.innerHTML='Tắt Cập Nhật - Chặn cập nhật hệ thống'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Tắt Cập Nhật
+                </button>
+
+                <button onclick="load_enableUpdates()"
+                    onmouseover="msgs.innerHTML='Bật Cập Nhật - Cho phép cập nhật hệ thống'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Bật Cập Nhật
+                </button>
+
+                <button onclick="load_rifRenamer()" onmouseover="msgs.innerHTML='Đổi Tên RIF - Quản lý tệp giấy phép'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Đổi Tên RIF
+                </button>
+
+                <button onclick="load_kernelClock()" onmouseover="msgs.innerHTML='Đồng Hồ Hạt Nhân - Tiện ích đồng hồ hệ thống'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Đồng Hồ Hạt Nhân
+                </button>
+
+                <button onclick="load_appcacheInstall()"
+                    onmouseover="msgs.innerHTML='Cài Đặt AppCache - Cài đặt bộ nhớ đệm ứng dụng'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Cài Đặt AppCache
+                </button>
+
+                <button onclick="load_historyBlocker()"
+                    onmouseover="msgs.innerHTML='Chặn Lịch Sử - Chặn theo dõi lịch sử trình duyệt'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Chặn Lịch Sử
+                </button>
+
+                <button onclick="load_pupDecrypt()"
+                    onmouseover="msgs.innerHTML='Giải Mã PUP - Giải mã tệp cập nhật PS4'"
+                    onmouseout="msgs.innerHTML='Sẵn Sàng Bẻ Khóa'">
+                    Giải Mã PUP
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="credits">
+        <div class="credits-line">
+            <span class="credit-label">Máy Chủ Trò Chơi Cao Cấp -</span>
+            <a href="https://nodeplay.net/" class="nodeplay-link">NodePlay</a>
+        </div>
+        <div class="credits-line">
+            <span class="credit-label">Tác Giả:</span>
+            <a href="https://github.com/LPhamDev97/" class="telegram-link">LÂM PHẠM</a>
+            <span style="margin: 0 1rem;">•</span>
+            <span class="credit-label">FACEBOOK:</span>
+            <a href="https://www.facebook.com/pham.lam.370316" class="credit-link">LÂM PHẠM</a>
+        </div>
+    </div>
+
+    <script>
+        function success() {
+            document.getElementById("menu").style.display = "block";
+            document.getElementById("progress").style.display = "none";
+            document.getElementById("controls").style.display = "block";
+        }
+
+        function allset() {
+            msgs.innerHTML = LoadedMSG;
+        }
+
+        function load_payload() {
+            req1 = null;
+            var req1 = new XMLHttpRequest();
+            req1.open('GET', PLfile); req1.responseType = "arraybuffer";
+            req1.send();
+            req1.onreadystatechange = function () {
+                if (req1.readyState == 4) {
+                    var padding1 = new Uint8Array(4 - (req1.response.byteLength % 4) % 4);
+                    var tmp1 = new Uint8Array(req1.response.byteLength + padding1.byteLength);
+                    tmp1.set(new Uint8Array(req1.response), 0);
+                    tmp1.set(padding1, req1.response.byteLength);
+                    var shellcode1 = new Uint32Array(tmp1.buffer);
+                    var code_addr1 = new int64(0x26100000, 0x00000009);
+                    p.syscall(477, code_addr1, 0x300000, 7, 0x41000, -1, 0);
+                    for (var i = 0; i < shellcode1.length; i++) {
+                        p.write4(code_addr1.add32(0x100000 + i * 4), shellcode1[i]);
+                    }
+                    runPAYLOAD1 = function () {
+                        p.fcall(code_addr1);
+                        PLfile = null;
+                        for (var x = 0; x < 0x300000; x += 8) {
+                            p.write8(code_addr1.add32(x), 0);
+                        } setTimeout(allset, 50);
+                    };
+                    setTimeout(runPAYLOAD1, 100);
+                }
+            };
+        }
+
+        function load_goldhen18() {
+            msgs.innerHTML = "Đang Tải GoldHEN v2.4b18.8... Vui Lòng Chờ";
+            LoadedMSG = "GoldHEN v2.4b18.8 Đã Tải ✔";
+            PLfile = "goldhen.bin";
+            load_payload();
+        }
+
+        function load_goldhen5() {
+            msgs.innerHTML = "Đang Tải GoldHEN v2.4b18.5... Vui Lòng Chờ";
+            LoadedMSG = "GoldHEN v2.4b18.5 Đã Tải ✔";
+            PLfile = "goldhen5.bin";
+            load_payload();
+        }
+
+        function load_ftp() {
+            msgs.innerHTML = "Đang Tải Máy Chủ FTP... Vui Lòng Chờ";
+            LoadedMSG = "Máy Chủ FTP Đã Tải ✔";
+            PLfile = "ftp.bin";
+            load_payload();
+        }
+
+        function load_ps4debug() {
+            msgs.innerHTML = "Đang Tải PS4Debug... Vui Lòng Chờ";
+            LoadedMSG = "PS4Debug Đã Tải ✔";
+            PLfile = "ps4debug.bin";
+            load_payload();
+        }
+
+        function load_app2usb() {
+            msgs.innerHTML = "Đang Tải App2USB... Vui Lòng Chờ";
+            LoadedMSG = "App2USB Đã Tải ✔";
+            PLfile = "app2usb.bin";
+            load_payload();
+        }
+
+        function load_backup() {
+            msgs.innerHTML = "Đang Tải Sao Lưu... Vui Lòng Chờ";
+            LoadedMSG = "Sao Lưu Đã Tải ✔";
+            PLfile = "backup.bin";
+            load_payload();
+        }
+
+        function load_restore() {
+            msgs.innerHTML = "Đang Tải Khôi Phục... Vui Lòng Chờ";
+            LoadedMSG = "Khôi Phục Đã Tải ✔";
+            PLfile = "restore.bin";
+            load_payload();
+        }
+
+        function load_disableUpdates() {
+            msgs.innerHTML = "Đang Tải Tắt Cập Nhật... Vui Lòng Chờ";
+            LoadedMSG = "Tắt Cập Nhật Đã Tải ✔";
+            PLfile = "disable-updates.bin";
+            load_payload();
+        }
+
+        function load_enableUpdates() {
+            msgs.innerHTML = "Đang Tải Bật Cập Nhật... Vui Lòng Chờ";
+            LoadedMSG = "Bật Cập Nhật Đã Tải ✔";
+            PLfile = "enable-updates.bin";
+            load_payload();
+        }
+
+        function load_rifRenamer() {
+            msgs.innerHTML = "Đang Tải Đổi Tên RIF... Vui Lòng Chờ";
+            LoadedMSG = "Đổi Tên RIF Đã Tải ✔";
+            PLfile = "rif-renamer.bin";
+            load_payload();
+        }
+
+        function load_kernelClock() {
+            msgs.innerHTML = "Đang Tải Đồng Hồ Hạt Nhân... Vui Lòng Chờ";
+            LoadedMSG = "Đồng Hồ Hạt Nhân Đã Tải ✔";
+            PLfile = "Kernel-Clock.bin";
+            load_payload();
+        }
+
+        function load_appcacheInstall() {
+            msgs.innerHTML = "Đang Tải Cài Đặt AppCache... Vui Lòng Chờ";
+            LoadedMSG = "Cài Đặt AppCache Đã Tải ✔";
+            PLfile = "appcache-install.bin";
+            load_payload();
+        }
+
+        function load_historyBlocker() {
+            msgs.innerHTML = "Đang Tải Chặn Lịch Sử... Vui Lòng Chờ";
+            LoadedMSG = "Chặn Lịch Sử Đã Tải ✔";
+            PLfile = "history-blocker.bin";
+            load_payload();
+        }
+
+        function load_pupDecrypt() {
+            msgs.innerHTML = "Đang Tải Giải Mã PUP... Vui Lòng Chờ";
+            LoadedMSG = "Giải Mã PUP Đã Tải ✔";
+            PLfile = "pup-decrypt.bin";
+            load_payload();
+        }
+    </script>
+</body>
+
+</html>
